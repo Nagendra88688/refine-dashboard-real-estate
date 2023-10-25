@@ -66,6 +66,9 @@ export const Login: React.FC = () => {
         <Typography align="center" color={"text.secondary"} fontSize="12px">
           <img style={{ padding: "0 5px" }} alt="Google" src={yariga} />
         </Typography>
+        <Typography align="center" color={"text.secondary"} fontSize="12px">
+          Made By Nagendra Singh
+        </Typography>
 
         <GoogleButton />
       </Box>

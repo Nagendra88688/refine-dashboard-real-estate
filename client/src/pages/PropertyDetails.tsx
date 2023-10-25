@@ -12,6 +12,15 @@ import Star from "@mui/icons-material/Star";
 
 import { CustomButton } from "components";
 import Loader from "components/common/Loader";
+import {
+  Alert,
+  Button,
+  Dialog,
+  DialogTitle,
+  TextareaAutosize,
+} from "@mui/material";
+import { useState } from "react";
+import GoogleMapContainer from "components/common/GoogleMapContainer";
 
 function checkImage(url: any) {
   const img = new Image();
@@ -20,6 +29,8 @@ function checkImage(url: any) {
 }
 
 const PropertyDetails = () => {
+  const [openDialog, setOpenDialog] = useState(false);
+  const [showMessageInput, setShowMessageInput] = useState(false);
   const navigate = useNavigate();
 
   const { data: user }: any = useGetIdentity();
@@ -259,42 +270,64 @@ const PropertyDetails = () => {
                 handleClick={() => {
                   if (isCurrentUser) {
                     navigate(`/properties/edit/${propertyDetails._id}`);
+                  } else {
+                    setShowMessageInput(true);
                   }
                 }}
               />
               <CustomButton
-                title={!isCurrentUser ? "Call" : "Delete"}
+                title={!isCurrentUser ? "Book" : "Delete"}
                 backgroundColor={!isCurrentUser ? "#2ED480" : "#d42e2e"}
                 color="#FCFCFC"
                 fullWidth
                 icon={!isCurrentUser ? <Phone /> : <Delete />}
                 handleClick={() => {
-                  if (isCurrentUser) handleDeleteProperty();
+                  if (isCurrentUser) {
+                    handleDeleteProperty();
+                  } else {
+                    setOpenDialog(true);
+                  }
                 }}
               />
             </Stack>
           </Stack>
 
           <Stack>
-            <img
-              src="https://serpmedia.org/scigen/images/googlemaps-nyc-standard.png?crc=3787557525"
-              alt="map"
-              width="100%"
-              height={306}
-              style={{ borderRadius: 10, objectFit: "cover" }}
-            />
+            <Box>
+              <GoogleMapContainer />
+            </Box>
           </Stack>
-
-          <Box>
-            <CustomButton
-              title="Book Now"
-              backgroundColor="#475BE8"
-              color="#FCFCFC"
-              fullWidth
-            />
-          </Box>
         </Box>
       </Box>
+
+      <Dialog onClose={() => setOpenDialog(false)} open={openDialog}>
+        <DialogTitle>
+          <Alert severity="success">
+            Agent is notified about your request, you will be replied back soon.
+          </Alert>
+        </DialogTitle>
+      </Dialog>
+
+      <Dialog
+        onClose={() => setShowMessageInput(false)}
+        open={showMessageInput}
+      >
+        <DialogTitle>
+          <Box
+            sx={{
+              display: "flex",
+              flexDirection: "column",
+              alignItems: "flex-end",
+            }}
+          >
+            <TextareaAutosize
+              style={{ height: "100px", width: "400px", padding: "8px" }}
+              placeholder="Type your message here..."
+            />
+            <Button onClick={() => setShowMessageInput(false)}>Send</Button>
+          </Box>
+        </DialogTitle>
+      </Dialog>
     </Box>
   );
 };
