@@ -1,5 +1,7 @@
+import { Box } from "@mui/material";
 import { useGetIdentity, useOne } from "@refinedev/core";
 import { Profile } from "components";
+import Loader from "components/common/Loader";
 
 const MyProfile = () => {
   const { data: user }: any = useGetIdentity();
@@ -10,7 +12,21 @@ const MyProfile = () => {
 
   const myProfile: any = data?.data ?? [];
 
-  if (isLoading) return <div>Loading...</div>;
+  if (isLoading)
+    return (
+      <Box
+        sx={{
+          width: "100%",
+          display: "flex",
+          justifyContent: "center",
+          height: "50vh",
+          alignItems: "center",
+          margin: "20px",
+        }}
+      >
+        <Loader />
+      </Box>
+    );
   if (isError) return <div>Error</div>;
 
   return (

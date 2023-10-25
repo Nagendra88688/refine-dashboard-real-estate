@@ -1,8 +1,3 @@
-To do: 
-1. Integrate maps
-2. About book button in property section
-3. About message and call button
-
 
 
 Learnings: 

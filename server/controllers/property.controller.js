@@ -131,7 +131,6 @@ const deleteProperty = async (req, res) => {
     const propertyToDelete = await Property.findById({
       _id: id,
     }).populate("creator");
-    console.log({ propertyToDelete });
 
     if (!propertyToDelete) throw new Error("Property not found");
 

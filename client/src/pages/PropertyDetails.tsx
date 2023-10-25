@@ -11,6 +11,7 @@ import Place from "@mui/icons-material/Place";
 import Star from "@mui/icons-material/Star";
 
 import { CustomButton } from "components";
+import Loader from "components/common/Loader";
 
 function checkImage(url: any) {
   const img = new Image();
@@ -31,7 +32,20 @@ const PropertyDetails = () => {
   const propertyDetails = data?.data ?? {};
 
   if (isLoading) {
-    return <div>Loading...</div>;
+    return (
+      <Box
+        sx={{
+          width: "100%",
+          height: "50vh",
+          display: "flex",
+          justifyContent: "center",
+          alignItems: "center",
+          margin: "20px",
+        }}
+      >
+        <Loader />
+      </Box>
+    );
   }
 
   if (isError) {

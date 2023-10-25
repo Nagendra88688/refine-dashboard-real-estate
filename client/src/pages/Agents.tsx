@@ -1,6 +1,7 @@
 import { Box, Typography } from "@mui/material";
 import { useList } from "@refinedev/core";
 import { AgentCard } from "components";
+import Loader from "components/common/Loader";
 import React from "react";
 
 const Agents = () => {
@@ -9,9 +10,22 @@ const Agents = () => {
   });
 
   const allAgents = data?.data ?? [];
-  console.log({ allAgents });
 
-  if (isLoading) return <div>Loading...</div>;
+  if (isLoading)
+    return (
+      <Box
+        sx={{
+          width: "100%",
+          display: "flex",
+          justifyContent: "center",
+          height: "50vh",
+          alignItems: "center",
+          margin: "20px",
+        }}
+      >
+        <Loader />
+      </Box>
+    );
   if (isError) return <div>Error</div>;
 
   return (

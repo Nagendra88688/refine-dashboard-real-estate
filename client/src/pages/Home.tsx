@@ -1,14 +1,12 @@
-import React from "react";
-
 import {
   PieChart,
   PropertyReferrals,
   TotalRevenue,
   PropertyCard,
-  TopAgent,
 } from "components";
 import { Box, Stack, Typography } from "@mui/material";
 import { useList } from "@refinedev/core";
+import Loader from "components/common/Loader";
 
 const Home = () => {
   const { data, isLoading, isError } = useList({
@@ -79,7 +77,16 @@ const Home = () => {
         mt="25px"
       >
         {isLoading ? (
-          <Typography>Loading...</Typography>
+          <Box
+            sx={{
+              width: "100%",
+              display: "flex",
+              justifyContent: "center",
+              padding: "20px",
+            }}
+          >
+            <Loader />
+          </Box>
         ) : isError ? (
           <Typography>Something went wrong</Typography>
         ) : (
